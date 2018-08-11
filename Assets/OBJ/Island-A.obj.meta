@@ -1,17 +1,16 @@
 fileFormatVersion: 2
-guid: e4608ce8fad6fec49af23c5eacf50eea
+guid: 3776bbe9225ea83409cb708627458b0b
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: DirtRoad
+    100000: Island-A
     100002: //RootNode
-    400000: DirtRoad
+    400000: Island-A
     400002: //RootNode
-    2100000: palette
-    2100002: DirtRoadMat
-    2300000: DirtRoad
-    3300000: DirtRoad
-    4300000: DirtRoad
+    2100000: Island-AMat
+    2300000: Island-A
+    3300000: Island-A
+    4300000: Island-A
   externalObjects: {}
   materials:
     importMaterials: 1
