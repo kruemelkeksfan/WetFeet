@@ -16,10 +16,10 @@ public class BuildingManager : MonoBehaviour
     {
 		
 	}
-    public void InsatciateBuilding(BuildableStruckture building)
+    public void InsatciateBuilding(BuildableStructure building)
     {
         GameObject currentBuilding = Instantiate(building.gameObject, transform.position, Quaternion.identity);
-        BuildableStruckture buildableStruckture = currentBuilding.GetComponent<BuildableStruckture>();
+        BuildableStructure buildableStruckture = currentBuilding.GetComponent<BuildableStructure>();
 
     }
 }
