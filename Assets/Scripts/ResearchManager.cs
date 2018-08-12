@@ -4,23 +4,21 @@ using UnityEngine;
 
 public class ResearchManager : MonoBehaviour
 	{
-	// variable: List of accomplished researches
+	[SerializeField] Dictionary<GameObject, bool> researched;
 
 	private void Awake()
 		{
 		DontDestroyOnLoad(this);
-		// initialize list
 		}
 
-	// adds the given research to the list of accomplished researches
-	public void addResearch(string researchname)
+	public void addResearch(GameObject buildingtype)
 		{
-
+		researched[buildingtype] = true;
 		}
 
 	// returns, whether the given building is already researched
 	public bool checkPrequisite(GameObject buildingtype)
 		{
-		return true;
+		return researched[buildingtype];
 		}
 	}

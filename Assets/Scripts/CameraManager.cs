@@ -23,6 +23,8 @@ public class CameraManager : MonoBehaviour {
     }
     public void AktivateBuildingCamera()
     {
+		print("call");
+
         mainCamera.gameObject.SetActive(false);
 
         buildingCamera.gameObject.SetActive(true);
