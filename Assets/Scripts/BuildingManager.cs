@@ -20,6 +20,5 @@ public class BuildingManager : MonoBehaviour
     {
         GameObject currentBuilding = Instantiate(building.gameObject, transform.position, Quaternion.identity);
         BuildableStructure buildableStruckture = currentBuilding.GetComponent<BuildableStructure>();
-
     }
 }
