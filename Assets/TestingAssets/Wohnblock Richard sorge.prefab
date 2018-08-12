@@ -60,7 +60,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1834491577804730}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -123.5, y: 0, z: 221}
+  m_LocalPosition: {x: -32.06414, y: 7.5, z: 32.35621}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4875000706741552}
@@ -148,7 +148,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 20.5, y: 2, z: 8.5}
+  m_Center: {x: 20, y: 2, z: 8}
 --- !u!65 &65167722955349968
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -159,8 +159,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 42, y: 21.033966, z: 17}
-  m_Center: {x: 0, y: 12.14608, z: 0.5}
+  m_Size: {x: 40, y: 19.945635, z: 15}
+  m_Center: {x: 0, y: 12.690246, z: 0}
 --- !u!65 &65308949504016698
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -172,7 +172,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: -20.5, y: 2, z: 8.5}
+  m_Center: {x: -20, y: 2, z: 8}
 --- !u!65 &65626145977224596
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -183,8 +183,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 42, y: 1, z: 17}
-  m_Center: {x: 0, y: 3.01, z: 0.5}
+  m_Size: {x: 41, y: 1, z: 16}
+  m_Center: {x: 0, y: 3.5, z: 0.5}
 --- !u!65 &65742599997952330
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -196,7 +196,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 20.5, y: 2, z: -7.5}
+  m_Center: {x: 20, y: 2, z: -7}
 --- !u!65 &65922575421947376
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -208,7 +208,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: -20.5, y: 2, z: -7.5}
+  m_Center: {x: -20, y: 2, z: -7}
 --- !u!114 &114066330652489384
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -220,7 +220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53dadbf078512fd47b681ac8874e37d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliding: 0
   environmentTag: Environment
 --- !u!114 &114143403346866566
 MonoBehaviour:
@@ -233,7 +232,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e283e77a6adb1f4f96232293c8993ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collidingEnviroment: []
   environmentTag: Environment
   structureTag: Structure
   subterraneanTest: {fileID: 114066330652489384}

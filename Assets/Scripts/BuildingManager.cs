@@ -22,6 +22,11 @@ public class BuildingManager : MonoBehaviour
                 Vector3 currentRotation = currentBuildableStructure.transform.rotation.eulerAngles;
                 currentBuildableStructure.transform.rotation = Quaternion.Euler(currentRotation + new Vector3(0, 90, 0));
             }
+            if (Input.GetMouseButtonDown(1)) // if building cancelled
+            {
+                cameraManager.AktivateMainCamera();
+                Object.Destroy(currentBuildableStructure);
+            }
         }
 	}
     public void InsatciateBuilding(BuildableStructure building)
