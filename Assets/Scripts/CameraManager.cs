@@ -3,30 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityTemplateProjects;
 
-public class CameraManager : MonoBehaviour {
+public class CameraManager : MonoBehaviour
+	{
+	[SerializeField] SimpleCameraController mainCamera;
+	[SerializeField] FlatCameraController buildingCamera;
+	[SerializeField] GameObject scriptcontainer;
 
-    [SerializeField] SimpleCameraController mainCamera;
-    [SerializeField] FlatCameraControlls buildingCamera;
+	private  HighlightManager highlighter;
 
-	void Update ()
-    {
-        transform.position += mainCamera.transform.localPosition;
-        transform.position += buildingCamera.transform.localPosition;
-        mainCamera.transform.localPosition = new Vector3(0, 0, 0);
-        buildingCamera.transform.localPosition = new Vector3(0, 0, 0);
+	private void Start()
+		{
+		highlighter = scriptcontainer.GetComponent<HighlightManager>();
+		}
+
+	void Update()
+		{
+		transform.position += mainCamera.transform.localPosition;
+		transform.position += buildingCamera.transform.localPosition;
+		mainCamera.transform.localPosition = new Vector3(0, 0, 0);
+		buildingCamera.transform.localPosition = new Vector3(0, 0, 0);
+		}
+
+	public void AktivateMainCamera()
+		{
+		buildingCamera.gameObject.SetActive(false);
+		mainCamera.gameObject.SetActive(true);
+		highlighter.disableHighlight();
+		}
+
+	public void AktivateBuildingCamera()
+		{
+		mainCamera.gameObject.SetActive(false);
+		buildingCamera.gameObject.SetActive(true);
+		highlighter.enableHighlight();
+		}
 	}
-    public void AktivateMainCamera()
-    {
-        buildingCamera.gameObject.SetActive(false);
-
-        mainCamera.gameObject.SetActive(true);
-    }
-    public void AktivateBuildingCamera()
-    {
-		print("call");
-
-        mainCamera.gameObject.SetActive(false);
-
-        buildingCamera.gameObject.SetActive(true);
-    }
-}

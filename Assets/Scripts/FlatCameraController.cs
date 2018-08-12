@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlatCameraControlls : MonoBehaviour {
+public class FlatCameraController : MonoBehaviour {
 
     [SerializeField] int speed = 2;
 	// Update is called once per frame

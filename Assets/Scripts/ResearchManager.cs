@@ -16,7 +16,6 @@ public class ResearchManager : MonoBehaviour
 		researched[buildingtype] = true;
 		}
 
-	// returns, whether the given building is already researched
 	public bool checkPrequisite(GameObject buildingtype)
 		{
 		return researched[buildingtype];
