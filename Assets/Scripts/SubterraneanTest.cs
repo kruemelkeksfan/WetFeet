@@ -5,9 +5,14 @@ using UnityEngine;
 public class SubterraneanTest : MonoBehaviour
 {
 
-    public bool colliding = false;
-    List<Collider> colliders = new List<Collider>();
+    public bool Colliding
+    {
+        get { return colliding; }
+    }
+
     [SerializeField] string environmentTag = "Environment";
+
+    bool colliding = false;
 
     private void OnTriggerEnter(Collider other)
     {

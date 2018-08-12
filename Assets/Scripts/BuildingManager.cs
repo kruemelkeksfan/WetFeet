@@ -4,21 +4,41 @@ using UnityEngine;
 
 public class BuildingManager : MonoBehaviour
 {
+    [SerializeField] CameraManager cameraManager;
 
-	// Use this for initialization
-	void Start ()
-    {
-		
-	}
-	
-	// Update is called once per frame
+    BuildableStructure currentBuildableStructure;
+
 	void Update ()
     {
-		
+        if (currentBuildableStructure != null) // while placing building
+        {
+            if (currentBuildableStructure.HasPlaced)// if building placed
+            {
+                cameraManager.AktivateMainCamera();
+                currentBuildableStructure = null;
+            }
+            if (currentBuildableStructure != null && Input.GetKeyDown(KeyCode.R))
+            {
+                Vector3 currentRotation = currentBuildableStructure.transform.rotation.eulerAngles;
+                currentBuildableStructure.transform.rotation = Quaternion.Euler(currentRotation + new Vector3(0, 90, 0));
+            }
+        }
 	}
     public void InsatciateBuilding(BuildableStructure building)
     {
-        GameObject currentBuilding = Instantiate(building.gameObject, transform.position, Quaternion.identity);
-        BuildableStructure buildableStruckture = currentBuilding.GetComponent<BuildableStructure>();
+        if (Buildable())
+        {
+            cameraManager.AktivateBuildingCamera();
+            GameObject currentBuilding = Instantiate(building.gameObject, transform.position, Quaternion.identity);
+            currentBuildableStructure = currentBuilding.GetComponent<BuildableStructure>();
+        }
+        else
+        {
+            // error/missing something notification 
+        }
+    }
+    bool Buildable() //building requirements
+    {
+        return true;
     }
 }
