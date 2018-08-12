@@ -6,6 +6,7 @@ public class BuildingManager : MonoBehaviour
 {
     [SerializeField] CameraManager cameraManager;
 
+	GameObject currentBuilding;
     BuildableStructure currentBuildableStructure;
 
 	void Update ()
@@ -25,7 +26,7 @@ public class BuildingManager : MonoBehaviour
             if (Input.GetMouseButtonDown(1)) // if building cancelled
             {
                 cameraManager.AktivateMainCamera();
-                Object.Destroy(currentBuildableStructure);
+                Object.Destroy(currentBuilding);
             }
         }
 	}
@@ -34,7 +35,7 @@ public class BuildingManager : MonoBehaviour
         if (Buildable())
         {
             cameraManager.AktivateBuildingCamera();
-            GameObject currentBuilding = Instantiate(building.gameObject, transform.position, Quaternion.identity);
+            currentBuilding = Instantiate(building.gameObject, transform.position, Quaternion.identity);
             currentBuildableStructure = currentBuilding.GetComponent<BuildableStructure>();
         }
         else

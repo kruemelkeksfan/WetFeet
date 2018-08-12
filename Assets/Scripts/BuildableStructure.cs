@@ -67,12 +67,10 @@ public class BuildableStructure : MonoBehaviour
         }
         else if (subterraneanTest.Colliding && transform.position.y >= 0)
         {
-            print("up");
             transform.position = transform.position + Vector3.up * 3;
         }
         else if (collidingEnviroment.Count == 0 && transform.position.y > 4)
         {
-            print("down");
             int count = 0;
             while (collidingEnviroment.Count == 0 && transform.position.y > 4 && count < 25)
             {
