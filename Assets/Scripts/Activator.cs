@@ -24,17 +24,21 @@ public class Activator : MonoBehaviour
 		{
 		foreach(GameObject activatable in activatables)
 			{
-			activatable.SetActive(true);
+			if(!activatable.activeSelf)
+				{
+				activatable.SetActive(true);
+				}
 			}
-		startstate = true;
 		}
 
 	public void deactivate()
 		{
 		foreach(GameObject activatable in activatables)
 			{
-			activatable.SetActive(false);
+			if(activatable.activeSelf)
+				{
+				activatable.SetActive(false);
+				}
 			}
-		startstate = false;
 		}
 	}
