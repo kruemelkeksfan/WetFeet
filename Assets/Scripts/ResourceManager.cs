@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RessourceManager : MonoBehaviour
+public class ResourceManager : MonoBehaviour
 	{
 	[SerializeField] int[] resources;
 	[SerializeField] int[] smallhouse;
@@ -32,7 +32,7 @@ public class RessourceManager : MonoBehaviour
 	public const int FOOD = 4;
 
 	private Dictionary<BuildableStructure.Buildingtype, int[]> productionvalues;
-	private Dictionary<BuildableStructure.Buildingtype, int> structurecounts;
+	private Dictionary<BuildableStructure.Buildingtype, int> structurecounts; // TODO: move to building manager
 	private int updatecounter = 0;
 
 	private void Start()
@@ -126,5 +126,10 @@ public class RessourceManager : MonoBehaviour
 			print("Horrible explosion happening in RessourceManager.cs!");
 			print(structure);
 			}
+		}
+
+	public  Dictionary<BuildableStructure.Buildingtype, int> getStructureCounts()
+		{
+		return structurecounts;
 		}
 	}

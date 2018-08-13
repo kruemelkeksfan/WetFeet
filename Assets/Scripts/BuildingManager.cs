@@ -5,7 +5,7 @@ using UnityEngine;
 public class BuildingManager : MonoBehaviour
 	{
 	[SerializeField] CameraManager cameraManager;
-	[SerializeField] RessourceManager ressourcemanager;
+	[SerializeField] ResourceManager ressourcemanager;
 	[SerializeField] int[] smallhouse;
 	[SerializeField] int[] apartmentblock;
 	[SerializeField] int[] skyscraper;
@@ -22,14 +22,14 @@ public class BuildingManager : MonoBehaviour
 	[SerializeField] int[] hydroponicfarm;
 	[SerializeField] int[] spaceport;
 
-	// private List<GameObject> structures;
+	private List<GameObject> structures;
 	private Dictionary<BuildableStructure.Buildingtype, int[]> buildcosts;
 	private GameObject currentBuilding;
 	private BuildableStructure currentBuildableStructure;
 
 	private void Start()
 		{
-		// structures = new List<GameObject>();
+		structures = new List<GameObject>();
 		buildcosts = new Dictionary<BuildableStructure.Buildingtype, int[]>();
 		buildcosts.Add(BuildableStructure.Buildingtype.smallhouse, smallhouse);
 		buildcosts.Add(BuildableStructure.Buildingtype.apartmentblock, apartmentblock);
@@ -101,14 +101,25 @@ public class BuildingManager : MonoBehaviour
 
 	public void addStructure(GameObject structure)
 		{
-		// structures.Add(structure);
+		structures.Add(structure);
 		ressourcemanager.addStructure(structure.GetComponent<BuildableStructure>().getBuildingType());
 		}
 
 	public void destroyStructure(GameObject structure)
 		{
-		// structures.Remove(structure);
+		structures.Remove(structure);
 		ressourcemanager.destroyStructure(structure.GetComponent<BuildableStructure>().getBuildingType());
 		Object.Destroy(structure);
+		}
+
+	public void checkWaterline(float waterline)
+		{
+		foreach(GameObject structure in structures)
+			{
+			if(structure.transform.position.y <= waterline)
+				{
+				destroyStructure(structure);
+				}
+			}
 		}
 	}
