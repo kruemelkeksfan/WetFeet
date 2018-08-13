@@ -4010,7 +4010,7 @@ MonoBehaviour:
         m_MethodName: InsatciateBuilding
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 114691483403797942, guid: 3e83ada938eb525458827f74f4855734,
+          m_ObjectArgument: {fileID: 114823592745975076, guid: 14342f5600e42ab49822673851dd6db7,
             type: 2}
           m_ObjectArgumentAssemblyTypeName: BuildableStructure, Assembly-CSharp
           m_IntArgument: 0
