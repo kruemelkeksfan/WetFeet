@@ -38,7 +38,6 @@ public class BuildableStructure : MonoBehaviour
 
 			for(int I = 0; I < corners.Length; ++I)
 				{
-				print(I + ": " + corners[I]);
 				if(Physics.Raycast(corners[I], Vector3.down, out hit, 200))
 					{
 					distances[I] = Mathf.RoundToInt(hit.distance);
@@ -47,11 +46,6 @@ public class BuildableStructure : MonoBehaviour
 					{
 					distances[I] = -1;
 					}
-				}
-
-			foreach(int distance in distances)
-				{
-				print(distance);
 				}
 
 			for(int I = 0; I < distances.Length; ++I)
