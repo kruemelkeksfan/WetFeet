@@ -8,6 +8,26 @@ public class BuildableStructure : MonoBehaviour
 	public const string environmentTag = "Environment";
 	public const string structureTag = "Structure";
 
+	public enum Buildingtype
+		{
+		smallhouse,
+		apartmentblock,
+		skyscraper,
+		mason,
+		concretefactory,
+		glassworks,
+		sawmill,
+		mine,
+		pumpjack,
+		manufacture,
+		factory,
+		hightechfactory,
+		farm,
+		hydroponicfarm,
+		spaceport
+		}
+
+	[SerializeField] Buildingtype type;
 	[SerializeField] int startHeight = 100;
 
 	private int collidingStructures = 0;
@@ -45,6 +65,7 @@ public class BuildableStructure : MonoBehaviour
 				else
 					{
 					distances[I] = -1;
+					solidground = false;
 					}
 				}
 
@@ -96,6 +117,11 @@ public class BuildableStructure : MonoBehaviour
 			{
 			--collidingStructures;
 			}
+		}
+
+	public Buildingtype getBuildingType()
+		{
+		return type;
 		}
 
 	public bool HasPlaced()

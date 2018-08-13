@@ -5,9 +5,16 @@ using UnityEngine;
 public class BuildingManager : MonoBehaviour
 	{
 	[SerializeField] CameraManager cameraManager;
+	[SerializeField] RessourceManager ressourcemanager;
 
-	GameObject currentBuilding;
-	BuildableStructure currentBuildableStructure;
+	// private List<GameObject> structures;
+	private GameObject currentBuilding;
+	private BuildableStructure currentBuildableStructure;
+
+	private void Start()
+		{
+		// structures = new List<GameObject>();
+		}
 
 	void Update()
 		{
@@ -17,6 +24,7 @@ public class BuildingManager : MonoBehaviour
 				{
 				cameraManager.AktivateMainCamera();
 				currentBuildableStructure = null;
+				addStructure(currentBuilding);
 				}
 			if(currentBuildableStructure != null && Input.GetKeyDown(KeyCode.R))
 				{
@@ -30,10 +38,24 @@ public class BuildingManager : MonoBehaviour
 				}
 			}
 		}
-	public void InsatciateBuilding(BuildableStructure building)
+
+	public void InstantiateBuilding(BuildableStructure building)
 		{
 		cameraManager.AktivateBuildingCamera();
 		currentBuilding = Instantiate(building.gameObject, transform.position, Quaternion.identity);
 		currentBuildableStructure = currentBuilding.GetComponent<BuildableStructure>();
+		}
+
+	public void addStructure(GameObject structure)
+		{
+		// structures.Add(structure);
+		ressourcemanager.addStructure(structure.GetComponent<BuildableStructure>().getBuildingType());
+		}
+
+	public void destroyStructure(GameObject structure)
+		{
+		// structures.Remove(structure);
+		ressourcemanager.destroyStructure(structure.GetComponent<BuildableStructure>().getBuildingType());
+		Object.Destroy(structure);
 		}
 	}
