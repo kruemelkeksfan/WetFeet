@@ -95,12 +95,11 @@ public class BuildableStructure : MonoBehaviour
 				}
 			}
 
-		/*if(collidingEnvironment < 0 || collidingStructures < 0)
+		if(collidingStructures < 0)
 			{
 			print("Horrible explosion happening in BuildableStructure.cs!");
-			print("collidingEnvironment == " + collidingEnvironment);
 			print("collidingStructures == " + collidingStructures);
-			}*/
+			}
 		}
 
 	private void OnTriggerEnter(Collider other)

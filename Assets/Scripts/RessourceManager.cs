@@ -81,6 +81,28 @@ public class RessourceManager : MonoBehaviour
 			}
 		}
 
+	public bool subtractRessources(int[] resources)
+		{
+		if(this.resources[WORKFORCE] >= resources[WORKFORCE]
+			&& this.resources[BUILDING_MATERIALS] >= resources[BUILDING_MATERIALS]
+			&& this.resources[RESOURCES] >= resources[RESOURCES]
+			&& this.resources[GOODS] >= resources[GOODS]
+			&& this.resources[FOOD] >= resources[FOOD])
+			{
+			this.resources[WORKFORCE] -= resources[WORKFORCE];
+			this.resources[BUILDING_MATERIALS] -= resources[BUILDING_MATERIALS];
+			this.resources[RESOURCES] -= resources[RESOURCES];
+			this.resources[GOODS] -= resources[GOODS];
+			this.resources[FOOD] -= resources[FOOD];
+
+			return true;
+			}
+		else
+			{
+			return false;
+			}
+		}
+
 	public void addStructure(BuildableStructure.Buildingtype structure)
 		{
 		if(structurecounts.ContainsKey(structure))

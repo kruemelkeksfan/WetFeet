@@ -26,6 +26,7 @@ public class Activator : MonoBehaviour
 			{
 			activatable.SetActive(true);
 			}
+		startstate = true;
 		}
 
 	public void deactivate()
@@ -34,5 +35,6 @@ public class Activator : MonoBehaviour
 			{
 			activatable.SetActive(false);
 			}
+		startstate = false;
 		}
 	}
