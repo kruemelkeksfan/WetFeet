@@ -5,35 +5,14 @@ using UnityTemplateProjects;
 
 public class BuildableStructure : MonoBehaviour
 	{
-	public int CollidingEnviromentCount
-		{
-		get
-			{
-			return collidingEnviroment.Count;
-			}
-		}
-	public int CollidingStructuresCount
-		{
-		get
-			{
-			return collidingStructures.Count;
-			}
-		}
-	public bool HasPlaced
-		{
-		get
-			{
-			return hasPlaced;
-			}
-		}
+	public const string environmentTag = "Environment";
+	public const string structureTag = "Structure";
 
-	[SerializeField] string environmentTag = "Environment";
-	[SerializeField] string structureTag = "Structure";
-	[SerializeField] SubterraneanTest subterraneanTest;
+	[SerializeField] int startHeight = 0;
 
-	bool hasPlaced = false;
-	List<Collider> collidingEnviroment = new List<Collider>();
-	List<Collider> collidingStructures = new List<Collider>();
+	private int collidingEnvironment = 0;
+	private int collidingStructures = 0;
+	private bool hasPlaced = false;
 
 	private void FixedUpdate()
 		{
@@ -41,69 +20,75 @@ public class BuildableStructure : MonoBehaviour
 			{
 			Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y);
 			Vector3 mouseRPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-			transform.position = new Vector3(mouseRPosition.x, transform.position.y, mouseRPosition.z);
-			if(Input.GetMouseButtonDown(0) && collidingEnviroment.Count >= 4 && collidingStructures.Count == 0) //building requirements
+			transform.position = new Vector3(mouseRPosition.x, startHeight, mouseRPosition.z);
+			transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), Mathf.RoundToInt(transform.position.z)); // snap to grid
+			GroundApproximation();
+			if(Input.GetMouseButtonDown(0) && checkTerrainConnection() && collidingStructures == 0) // building requirements
 				{
+				// GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll; // TODO: Find bug which moves objects after placement // Question: Fixed?!
+				transform.position = new Vector3(transform.position.x, transform.position.y + 0.2f, transform.position.z);
 				hasPlaced = true;
 				}
 			else
 				{
-				// error/missing something notification 
+				// error/missing something notification
 				}
 			}
 
+		if(collidingEnvironment < 0 || collidingStructures < 0)
+			{
+			print("Horrible explosion happening in BuildableStructure.cs!");
+			print("collidingEnvironment == " + collidingEnvironment);
+			print("collidingStructures == " + collidingStructures);
+			}
 		}
 
-	private void Update()
+	private void GroundApproximation()
 		{
-		SnapToGround();
-
-		transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y / 5) * 5, Mathf.RoundToInt(transform.position.z)); // snap to grid
+		if(collidingEnvironment == 0)
+			{
+			transform.position = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z);
+			}
+		if(collidingEnvironment > 0)
+			{
+			transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+			}
+		startHeight = Mathf.RoundToInt(transform.position.y);
 		}
 
-	private void SnapToGround()
+	private bool checkTerrainConnection()
 		{
-		if(transform.position.y < 0)
-			{
-			transform.position = new Vector3(transform.position.x, 0, transform.position.z);
-			}
-		else if(subterraneanTest.Colliding && transform.position.y >= 0)
-			{
-			transform.position = transform.position + Vector3.up * 3;
-			}
-		else if(collidingEnviroment.Count == 0 && transform.position.y > 4)
-			{
-			int count = 0;
-			while(collidingEnviroment.Count == 0 && transform.position.y > 4 && count < 25)
-				{
-				count++;
-				transform.position = transform.position + (Vector3.down * 5);
-				}
-			}
+		return true;
 		}
 
 	private void OnTriggerEnter(Collider other)
 		{
 		if(other.tag == environmentTag)
 			{
-			collidingEnviroment.Add(other);
+			collidingEnvironment = 1;
 			}
 		else if(other.tag == structureTag)
 			{
-			collidingStructures.Add(other);
+			++collidingStructures;
 			}
-
 		}
 
 	private void OnTriggerExit(Collider other)
 		{
 		if(other.tag == environmentTag)
 			{
-			collidingEnviroment.Remove(other);
+			print("call");
+			--collidingEnvironment;
+			print(collidingEnvironment);
 			}
 		else if(other.tag == structureTag)
 			{
-			collidingStructures.Remove(other);
+			--collidingStructures;
 			}
+		}
+
+	public bool HasPlaced()
+		{
+		return hasPlaced;
 		}
 	}
