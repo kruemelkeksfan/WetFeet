@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BuildingManager : MonoBehaviour
 	{
@@ -21,6 +22,8 @@ public class BuildingManager : MonoBehaviour
 	[SerializeField] int[] farm;
 	[SerializeField] int[] hydroponicfarm;
 	[SerializeField] int[] spaceport;
+
+	[SerializeField] GameObject launch; // TODO: Button?
 
 	private List<GameObject> structures;
 	private Dictionary<BuildableStructure.Buildingtype, int[]> buildcosts;
@@ -58,6 +61,12 @@ public class BuildingManager : MonoBehaviour
 					{
 					cameraManager.AktivateMainCamera();
 					addStructure(currentBuilding);
+
+					if(currentBuildableStructure.getBuildingType() == BuildableStructure.Buildingtype.spaceport)
+						{
+						launch.SetActive(true);
+						}
+
 					currentBuilding = null;
 					currentBuildableStructure = null;
 					}
