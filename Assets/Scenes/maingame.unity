@@ -9635,13 +9635,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1197422991}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 50, z: 0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
+  m_LocalPosition: {x: 0, y: 200, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 320197178}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
 --- !u!114 &1197422994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11146,7 +11146,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1891432603}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -13110,6 +13110,85 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf619e4d673929a47bd9c2fa7d33d985, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &1625414048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1625414049}
+  - component: {fileID: 1625414051}
+  - component: {fileID: 1625414050}
+  m_Layer: 5
+  m_Name: CameraInfo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1625414049
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1625414048}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1891432603}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -150, y: 30}
+  m_SizeDelta: {x: 300, y: 60}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1625414050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1625414048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 16
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 0
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'W/A/S/D/Q/E - Move Camera
+
+    Middle Mouse - Rotate Camera
+
+    Escape - Exit'
+--- !u!222 &1625414051
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1625414048}
+  m_CullTransparentMesh: 0
 --- !u!1 &1632399091
 GameObject:
   m_ObjectHideFlags: 0
@@ -14039,13 +14118,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1687258581}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 50, z: 0}
+  m_LocalRotation: {x: 0, y: 0.92387956, z: -0.38268343, w: 0}
+  m_LocalPosition: {x: 0, y: 400, z: 400}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 320197178}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 180, z: 0}
 --- !u!114 &1687258586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15639,8 +15718,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 384, y: -16}
-  m_SizeDelta: {x: 768, y: 32}
+  m_AnchoredPosition: {x: 600, y: -10}
+  m_SizeDelta: {x: 1200, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1830049344
 MonoBehaviour:
@@ -15981,6 +16060,7 @@ RectTransform:
   - {fileID: 630477453}
   - {fileID: 465651547}
   - {fileID: 1830049343}
+  - {fileID: 1625414049}
   - {fileID: 1381543195}
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -16719,21 +16799,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraManager: {fileID: 320197179}
   ressourcemanager: {fileID: 1939503170}
-  smallhouse: 3200000019000000000000000000000000000000
-  apartmentblock: fa000000f4010000000000003200000000000000
-  skyscraper: c40900008813000000000000f401000000000000
-  mason: 3200000019000000000000000000000000000000
-  concretefactory: f4010000fa000000000000003200000000000000
-  glassworks: 88130000c409000000000000f401000000000000
-  sawmill: c40900008813000000000000f401000000000000
-  mine: c4090000f4010000000000000000000000000000
-  pumpjack: 881300008813000000000000c409000000000000
+  smallhouse: 320000001e000000000000000000000000000000
+  apartmentblock: c80000002c010000000000003200000000000000
+  skyscraper: d00700008813000000000000f401000000000000
+  mason: 320000001e000000000000000000000000000000
+  concretefactory: 90010000c8000000000000003200000000000000
+  glassworks: e8030000dc05000000000000f401000000000000
+  sawmill: 88130000d007000000000000f401000000000000
+  mine: e8030000f4010000000000000000000000000000
+  pumpjack: dc050000d007000000000000f401000000000000
   manufacture: f4010000f4010000000000000000000000000000
-  factory: 881300008813000000000000f401000000000000
-  hightechfactory: a8610000a8610000000000008813000000000000
-  farm: fa00000032000000000000000000000000000000
-  hydroponicfarm: 881300008813000000000000f401000000000000
-  spaceport: 50c3000050c3000050c3000050c3000050c30000
+  factory: dc050000dc05000000000000c800000000000000
+  hightechfactory: 881300008813000000000000e803000000000000
+  farm: c800000032000000000000000000000000000000
+  hydroponicfarm: 881300008813000000000000e803000000000000
+  spaceport: 50c3000010270000102700001027000010270000
   launch: {fileID: 465651546}
 --- !u!114 &1939503167
 MonoBehaviour:
@@ -16822,8 +16902,8 @@ MonoBehaviour:
   sawmill: 0
   mine: 0.005
   pumpjack: 0.015
-  manufacture: 0.005
-  factory: 0.0015
+  manufacture: 0.002
+  factory: 0.015
   hightechfactory: 0
   farm: 0.01
   hydroponicfarm: 0

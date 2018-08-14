@@ -35,6 +35,9 @@ public class ResourceManager : MonoBehaviour
 	private Dictionary<BuildableStructure.Buildingtype, int> structurecounts; // TODO: move to building manager
 	private int updatecounter = 0;
 
+	private bool project = false;
+	private int[] costs;
+
 	private void Start()
 		{
 		productionvalues = new Dictionary<BuildableStructure.Buildingtype, int[]>();
@@ -71,11 +74,22 @@ public class ResourceManager : MonoBehaviour
 				resources[FOOD] += (productionvalues[structure][FOOD]) * structurecounts[structure];
 				}
 
-			resourcedisplay.text = "Workforce: " + resources[WORKFORCE]
+			if(project)
+				{
+				resourcedisplay.text = "Workforce: " + resources[WORKFORCE] + " (-" + costs[WORKFORCE] + ") "
+				+ "\t\t\t\t Building Materials: " + resources[BUILDING_MATERIALS] + " (-" + costs[BUILDING_MATERIALS] + ") "
+				+ "\t\t\t\t Resources: " + resources[RESOURCES] + " (-" + costs[RESOURCES] + ") "
+				+ "\t\t\t\t Goods: " + resources[GOODS] + " (-" + costs[GOODS] + ") "
+				+ "\t\t\t\t Food: " + resources[FOOD] + " (-" + costs[FOOD] + ") ";
+				}
+			else
+				{
+				resourcedisplay.text = "Workforce: " + resources[WORKFORCE]
 				+ "\t\t\t\t Building Materials: " + resources[BUILDING_MATERIALS]
 				+ "\t\t\t\t Resources: " + resources[RESOURCES]
 				+ "\t\t\t\t Goods: " + resources[GOODS]
 				+ "\t\t\t\t Food: " + resources[FOOD];
+				}
 
 			updatecounter = 0;
 			}
@@ -131,5 +145,16 @@ public class ResourceManager : MonoBehaviour
 	public  Dictionary<BuildableStructure.Buildingtype, int> getStructureCounts()
 		{
 		return structurecounts;
+		}
+
+	public void setProjectCosts(int[] costs)
+		{
+		this.costs = costs;
+		project = true;
+		}
+
+	public void unsetProjectCosts()
+		{
+		project = false;
 		}
 	}

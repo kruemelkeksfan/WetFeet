@@ -92,6 +92,8 @@ public class BuildingManager : MonoBehaviour
 		{
 		if(currentBuilding != null && currentBuildableStructure != null)
 			{
+			ressourcemanager.unsetProjectCosts();
+
 			cameraManager.AktivateMainCamera();
 			Object.Destroy(currentBuilding);
 			currentBuilding = null;
@@ -106,6 +108,8 @@ public class BuildingManager : MonoBehaviour
 		cameraManager.AktivateBuildingCamera();
 		currentBuilding = Instantiate(building.gameObject, transform.position, Quaternion.identity);
 		currentBuildableStructure = currentBuilding.GetComponent<BuildableStructure>();
+
+		ressourcemanager.setProjectCosts(buildcosts[currentBuildableStructure.getBuildingType()]);
 		}
 
 	public void addStructure(GameObject structure)
