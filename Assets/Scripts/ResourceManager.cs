@@ -1,11 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ResourceManager : MonoBehaviour
 	{
-	[SerializeField] int[] resources;
+	[SerializeField] BuildingManager buildingmanager;
+	[SerializeField] Text resourcedisplay;
+	[SerializeField] int updatefrequency = 50;
+	[SerializeField] int[] startresources;
 	[SerializeField] int[] smallhouse;
 	[SerializeField] int[] apartmentblock;
 	[SerializeField] int[] skyscraper;
@@ -21,25 +25,47 @@ public class ResourceManager : MonoBehaviour
 	[SerializeField] int[] farm;
 	[SerializeField] int[] hydroponicfarm;
 	[SerializeField] int[] spaceport;
-	[SerializeField] Text resourcedisplay;
-	[SerializeField] int updatefrequency = 50;
 
+	public enum Resourcetype
+		{
+		workforce,
+		buildingmaterials,
+		resources,
+		goods,
+		food
+		}
 
-	public const int WORKFORCE = 0;
-	public const int BUILDING_MATERIALS = 1;
-	public const int RESOURCES = 2;
-	public const int GOODS = 3;
-	public const int FOOD = 4;
-
+	private Dictionary<Resourcetype, int> resourceindices;
+	private Dictionary<Resourcetype, string> resourcenames;
+	private Dictionary<Resourcetype, int> resources;
 	private Dictionary<BuildableStructure.Buildingtype, int[]> productionvalues;
-	private Dictionary<BuildableStructure.Buildingtype, int> structurecounts; // TODO: move to building manager
 	private int updatecounter = 0;
-
-	private bool project = false;
-	private int[] costs;
+	private int[] projectcosts;
 
 	private void Start()
 		{
+		resourceindices = new Dictionary<Resourcetype, int>(5);
+		resourceindices.Add(Resourcetype.workforce, 0);
+		resourceindices.Add(Resourcetype.buildingmaterials, 1);
+		resourceindices.Add(Resourcetype.resources, 2);
+		resourceindices.Add(Resourcetype.goods, 3);
+		resourceindices.Add(Resourcetype.food, 4);
+
+		resourcenames = new Dictionary<Resourcetype, string>(5);
+		resourcenames.Add(Resourcetype.workforce, "Workforce");
+		resourcenames.Add(Resourcetype.buildingmaterials, "Building Materials");
+		resourcenames.Add(Resourcetype.resources, "Resources");
+		resourcenames.Add(Resourcetype.goods, "Goods");
+		resourcenames.Add(Resourcetype.food, "Food");
+
+		resources = new Dictionary<Resourcetype, int>(5);
+		foreach(Resourcetype type in Enum.GetValues(typeof(Resourcetype)))
+			{
+			resources.Add(type, startresources[resourceindices[type]]);
+			}
+
+		unsetProjectCosts();
+
 		productionvalues = new Dictionary<BuildableStructure.Buildingtype, int[]>();
 		productionvalues.Add(BuildableStructure.Buildingtype.smallhouse, smallhouse);
 		productionvalues.Add(BuildableStructure.Buildingtype.apartmentblock, apartmentblock);
@@ -56,105 +82,65 @@ public class ResourceManager : MonoBehaviour
 		productionvalues.Add(BuildableStructure.Buildingtype.farm, farm);
 		productionvalues.Add(BuildableStructure.Buildingtype.hydroponicfarm, hydroponicfarm);
 		productionvalues.Add(BuildableStructure.Buildingtype.spaceport, spaceport);
-
-		structurecounts = new Dictionary<BuildableStructure.Buildingtype, int>();
 		}
 
 	void FixedUpdate()
 		{
-		// +49 800 1810771
 		if(++updatecounter >= updatefrequency)
 			{
-			foreach(BuildableStructure.Buildingtype structure in structurecounts.Keys)
+			foreach(BuildableStructure.Buildingtype buildingtype in Enum.GetValues(typeof(BuildableStructure.Buildingtype)))
 				{
-				resources[WORKFORCE] += (productionvalues[structure][WORKFORCE]) * structurecounts[structure];
-				resources[BUILDING_MATERIALS] += (productionvalues[structure][BUILDING_MATERIALS]) * structurecounts[structure];
-				resources[RESOURCES] += (productionvalues[structure][RESOURCES]) * structurecounts[structure];
-				resources[GOODS] += (productionvalues[structure][GOODS]) * structurecounts[structure];
-				resources[FOOD] += (productionvalues[structure][FOOD]) * structurecounts[structure];
+				foreach(Resourcetype resourcetype in Enum.GetValues(typeof(Resourcetype)))
+					{
+					resources[resourcetype] += productionvalues[buildingtype][resourceindices[resourcetype]] * buildingmanager.getBuildingCount(buildingtype);
+					}
 				}
 
-			if(project)
+			string resourcetext = "";
+			foreach(Resourcetype type in Enum.GetValues(typeof(Resourcetype)))
 				{
-				resourcedisplay.text = "Workforce: " + resources[WORKFORCE] + " (-" + costs[WORKFORCE] + ") "
-				+ "\t\t\t\t Building Materials: " + resources[BUILDING_MATERIALS] + " (-" + costs[BUILDING_MATERIALS] + ") "
-				+ "\t\t\t\t Resources: " + resources[RESOURCES] + " (-" + costs[RESOURCES] + ") "
-				+ "\t\t\t\t Goods: " + resources[GOODS] + " (-" + costs[GOODS] + ") "
-				+ "\t\t\t\t Food: " + resources[FOOD] + " (-" + costs[FOOD] + ") ";
+				resourcetext += resourcenames[type] + ": " + resources[type] + " ";
+				if(projectcosts[resourceindices[type]] != 0)
+					{
+					resourcetext += "(" + projectcosts[resourceindices[type]] + ") ";
+					}
+				resourcetext += "\t\t\t\t";
 				}
-			else
-				{
-				resourcedisplay.text = "Workforce: " + resources[WORKFORCE]
-				+ "\t\t\t\t Building Materials: " + resources[BUILDING_MATERIALS]
-				+ "\t\t\t\t Resources: " + resources[RESOURCES]
-				+ "\t\t\t\t Goods: " + resources[GOODS]
-				+ "\t\t\t\t Food: " + resources[FOOD];
-				}
+			resourcedisplay.text = resourcetext;
 
 			updatecounter = 0;
 			}
 		}
 
-	public bool subtractRessources(int[] resources)
+	public bool subtractResources(int[] resources)
 		{
-		if(this.resources[WORKFORCE] >= resources[WORKFORCE]
-			&& this.resources[BUILDING_MATERIALS] >= resources[BUILDING_MATERIALS]
-			&& this.resources[RESOURCES] >= resources[RESOURCES]
-			&& this.resources[GOODS] >= resources[GOODS]
-			&& this.resources[FOOD] >= resources[FOOD])
+		foreach(Resourcetype type in Enum.GetValues(typeof(Resourcetype)))
 			{
-			this.resources[WORKFORCE] -= resources[WORKFORCE];
-			this.resources[BUILDING_MATERIALS] -= resources[BUILDING_MATERIALS];
-			this.resources[RESOURCES] -= resources[RESOURCES];
-			this.resources[GOODS] -= resources[GOODS];
-			this.resources[FOOD] -= resources[FOOD];
+			if(resources[resourceindices[type]] > this.resources[type])
+				{
+				return false;
+				}
+			}
 
-			return true;
-			}
-		else
+		foreach(Resourcetype type in Enum.GetValues(typeof(Resourcetype)))
 			{
-			return false;
+			this.resources[type] -= resources[resourceindices[type]];
 			}
+
+		return true;
 		}
 
-	public void addStructure(BuildableStructure.Buildingtype structure)
+	public void setProjectCosts(int[] projectcosts)
 		{
-		if(structurecounts.ContainsKey(structure))
-			{
-			++structurecounts[structure];
-			}
-		else
-			{
-			structurecounts.Add(structure, 1);
-			}
-		}
-
-	public void destroyStructure(BuildableStructure.Buildingtype structure)
-		{
-		if(structurecounts.ContainsKey(structure) && structurecounts[structure] > 0)
-			{
-			--structurecounts[structure];
-			}
-		else
-			{
-			print("Horrible explosion happening in RessourceManager.cs!");
-			print(structure);
-			}
-		}
-
-	public  Dictionary<BuildableStructure.Buildingtype, int> getStructureCounts()
-		{
-		return structurecounts;
-		}
-
-	public void setProjectCosts(int[] costs)
-		{
-		this.costs = costs;
-		project = true;
+		this.projectcosts = projectcosts;
 		}
 
 	public void unsetProjectCosts()
 		{
-		project = false;
+		projectcosts = new int[5];
+		for(int I = 0; I < 5; ++I)
+			{
+			projectcosts[I] = 0;
+			}
 		}
 	}

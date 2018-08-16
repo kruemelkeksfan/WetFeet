@@ -5,8 +5,9 @@ using UnityTemplateProjects;
 
 public class BuildableStructure : MonoBehaviour
 	{
-	public const string environmentTag = "Environment";
-	public const string structureTag = "Structure";
+	[SerializeField] Buildingtype type;
+	[SerializeField] int startHeight = 100;
+	[SerializeField] string structuretag = "Structure";
 
 	public enum Buildingtype
 		{
@@ -27,15 +28,12 @@ public class BuildableStructure : MonoBehaviour
 		spaceport
 		}
 
-	[SerializeField] Buildingtype type;
-	[SerializeField] int startHeight = 100;
-
-	private int collidingStructures = 0;
-	private bool hasPlaced = false;
+	private int collidingstructures = 0;
+	private bool placed = false;
 
 	private void FixedUpdate()
 		{
-		if(!hasPlaced)
+		if(!placed)
 			{
 			Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y);
 			Vector3 mouseRPosition = Camera.main.ScreenToWorldPoint(mousePosition);
@@ -84,10 +82,10 @@ public class BuildableStructure : MonoBehaviour
 				}
 
 			// Check building requirements
-			if(Input.GetMouseButtonDown(0) && solidground && collidingStructures == 0)
+			if(Input.GetMouseButtonDown(0) && solidground && collidingstructures == 0)
 				{
 				transform.position = new Vector3(transform.position.x, transform.position.y - 0.8f, transform.position.z);
-				hasPlaced = true;
+				placed = true;
 				}
 			else
 				{
@@ -95,26 +93,26 @@ public class BuildableStructure : MonoBehaviour
 				}
 			}
 
-		if(collidingStructures < 0)
+		if(collidingstructures < 0)
 			{
 			print("Horrible explosion happening in BuildableStructure.cs!");
-			print("collidingStructures == " + collidingStructures);
+			print("collidingStructures == " + collidingstructures);
 			}
 		}
 
 	private void OnTriggerEnter(Collider other)
 		{
-		if(other.tag == structureTag)
+		if(other.tag == structuretag)
 			{
-			++collidingStructures;
+			++collidingstructures;
 			}
 		}
 
 	private void OnTriggerExit(Collider other)
 		{
-		if(other.tag == structureTag)
+		if(other.tag == structuretag)
 			{
-			--collidingStructures;
+			--collidingstructures;
 			}
 		}
 
@@ -123,8 +121,8 @@ public class BuildableStructure : MonoBehaviour
 		return type;
 		}
 
-	public bool HasPlaced()
+	public bool hasPlaced()
 		{
-		return hasPlaced;
+		return placed;
 		}
 	}

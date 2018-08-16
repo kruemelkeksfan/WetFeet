@@ -1,9 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PollutionManager : MonoBehaviour
 	{
+	[SerializeField] BuildingManager buildingmanager;
+	[SerializeField] ResourceManager resourcemanager;
+	[SerializeField] GameObject water;
+	[SerializeField] int updatefrequency = 500;
 	[SerializeField] float smallhouse;
 	[SerializeField] float apartmentblock;
 	[SerializeField] float skyscraper;
@@ -19,10 +24,6 @@ public class PollutionManager : MonoBehaviour
 	[SerializeField] float farm;
 	[SerializeField] float hydroponicfarm;
 	[SerializeField] float spaceport;
-	[SerializeField] BuildingManager buildingmanager;
-	[SerializeField] ResourceManager resourcemanager;
-	[SerializeField] GameObject water;
-	[SerializeField] int updatefrequency = 500;
 
 	private float pollution = 0.2f;
 	private int updatecounter;
@@ -52,19 +53,14 @@ public class PollutionManager : MonoBehaviour
 		{
 		if(++updatecounter >= updatefrequency)
 			{
-			Dictionary<BuildableStructure.Buildingtype, int> structurecounts = resourcemanager.getStructureCounts(); // TODO: kill it with fire
-			foreach(BuildableStructure.Buildingtype structure in structurecounts.Keys)
+			foreach(BuildableStructure.Buildingtype type in  Enum.GetValues(typeof(BuildableStructure.Buildingtype)))
 				{
-				pollution += (pollutionvalues[structure]) * structurecounts[structure];
-				pollution += (pollutionvalues[structure]) * structurecounts[structure];
-				pollution += (pollutionvalues[structure]) * structurecounts[structure];
-				pollution += (pollutionvalues[structure]) * structurecounts[structure];
-				pollution += (pollutionvalues[structure]) * structurecounts[structure];
+				pollution += pollutionvalues[type] * buildingmanager.getBuildingCount(type);
 				}
 			updatecounter = 0;
 			}
 
 		water.transform.position = new Vector3(water.transform.position.x, pollution, water.transform.position.z);
-		buildingmanager.checkWaterline(pollution - 1);
+		buildingmanager.checkWaterline(pollution);
 		}
 	}

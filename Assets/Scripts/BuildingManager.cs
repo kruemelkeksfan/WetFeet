@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class BuildingManager : MonoBehaviour
 	{
-	[SerializeField] CameraManager cameraManager;
-	[SerializeField] ResourceManager ressourcemanager;
+	[SerializeField] CameraManager cameramanager;
+	[SerializeField] ResourceManager resourcemanager;
+	[SerializeField] Button launch;
 	[SerializeField] int[] smallhouse;
 	[SerializeField] int[] apartmentblock;
 	[SerializeField] int[] skyscraper;
@@ -23,16 +24,21 @@ public class BuildingManager : MonoBehaviour
 	[SerializeField] int[] hydroponicfarm;
 	[SerializeField] int[] spaceport;
 
-	[SerializeField] GameObject launch; // TODO: Button?
-
 	private List<GameObject> structures;
+	private Dictionary<BuildableStructure.Buildingtype, int> structurecounts;
 	private Dictionary<BuildableStructure.Buildingtype, int[]> buildcosts;
-	private GameObject currentBuilding;
-	private BuildableStructure currentBuildableStructure;
+	private GameObject currentbuilding;
 
 	private void Start()
 		{
 		structures = new List<GameObject>();
+
+		structurecounts = new Dictionary<BuildableStructure.Buildingtype, int>();
+		foreach(BuildableStructure.Buildingtype type in System.Enum.GetValues(typeof(BuildableStructure.Buildingtype)))
+			{
+			structurecounts.Add(type, 0);
+			}
+
 		buildcosts = new Dictionary<BuildableStructure.Buildingtype, int[]>();
 		buildcosts.Add(BuildableStructure.Buildingtype.smallhouse, smallhouse);
 		buildcosts.Add(BuildableStructure.Buildingtype.apartmentblock, apartmentblock);
@@ -53,22 +59,23 @@ public class BuildingManager : MonoBehaviour
 
 	void Update()
 		{
-		if(currentBuildableStructure != null) // while placing building
+		if(currentbuilding != null) // while placing building
 			{
-			if(currentBuildableStructure.HasPlaced()) // if building placed
+			BuildableStructure currentBuildableStructure = currentbuilding.GetComponent<BuildableStructure>();
+			if(currentBuildableStructure.hasPlaced()) // if building placed
 				{
-				if(ressourcemanager.subtractRessources(buildcosts[currentBuildableStructure.getBuildingType()]))
+				if(resourcemanager.subtractResources(buildcosts[currentBuildableStructure.getBuildingType()]))
 					{
-					cameraManager.AktivateMainCamera();
-					addStructure(currentBuilding);
+					cameramanager.AktivateMainCamera();
+					addStructure(currentbuilding);
+					resourcemanager.unsetProjectCosts();
 
 					if(currentBuildableStructure.getBuildingType() == BuildableStructure.Buildingtype.spaceport)
 						{
-						launch.SetActive(true);
+						launch.gameObject.SetActive(true);
 						}
 
-					currentBuilding = null;
-					currentBuildableStructure = null;
+					currentbuilding = null;
 					}
 				else
 					{
@@ -76,10 +83,10 @@ public class BuildingManager : MonoBehaviour
 					// No Ressources Error
 					}
 				}
-			if(currentBuildableStructure != null && Input.GetKeyDown(KeyCode.R))
+			if(currentbuilding != null && Input.GetKeyDown(KeyCode.R))
 				{
-				Vector3 currentRotation = currentBuilding.transform.rotation.eulerAngles;
-				currentBuilding.transform.rotation = Quaternion.Euler(currentRotation + new Vector3(0, 90, 0));
+				Vector3 currentRotation = currentbuilding.transform.rotation.eulerAngles;
+				currentbuilding.transform.rotation = Quaternion.Euler(currentRotation + new Vector3(0, 90, 0));
 				}
 			if(Input.GetMouseButtonDown(1)) // if building cancelled
 				{
@@ -88,48 +95,51 @@ public class BuildingManager : MonoBehaviour
 			}
 		}
 
-	public void cancelBuilding()
-		{
-		if(currentBuilding != null && currentBuildableStructure != null)
-			{
-			ressourcemanager.unsetProjectCosts();
-
-			cameraManager.AktivateMainCamera();
-			Object.Destroy(currentBuilding);
-			currentBuilding = null;
-			currentBuildableStructure = null;
-			}
-		}
-
 	public void InstantiateBuilding(BuildableStructure building)
 		{
 		cancelBuilding();
 
-		cameraManager.AktivateBuildingCamera();
-		currentBuilding = Instantiate(building.gameObject, transform.position, Quaternion.identity);
-		currentBuildableStructure = currentBuilding.GetComponent<BuildableStructure>();
+		cameramanager.AktivateBuildingCamera();
+		currentbuilding = Instantiate(building.gameObject, transform.position, Quaternion.identity);
 
-		ressourcemanager.setProjectCosts(buildcosts[currentBuildableStructure.getBuildingType()]);
+		resourcemanager.setProjectCosts(buildcosts[currentbuilding.GetComponent<BuildableStructure>().getBuildingType()]);
 		}
 
-	public void addStructure(GameObject structure)
+	private void cancelBuilding()
 		{
+		if(currentbuilding != null)
+			{
+			resourcemanager.unsetProjectCosts();
+
+			cameramanager.AktivateMainCamera();
+			Object.Destroy(currentbuilding);
+			currentbuilding = null;
+			}
+		}
+
+	private void addStructure(GameObject structure)
+		{
+		++structurecounts[structure.GetComponent<BuildableStructure>().getBuildingType()];
 		structures.Add(structure);
-		ressourcemanager.addStructure(structure.GetComponent<BuildableStructure>().getBuildingType());
 		}
 
-	public void destroyStructure(GameObject structure)
+	private void destroyStructure(GameObject structure)
 		{
+		--structurecounts[structure.GetComponent<BuildableStructure>().getBuildingType()];
 		structures.Remove(structure);
-		ressourcemanager.destroyStructure(structure.GetComponent<BuildableStructure>().getBuildingType());
 		Object.Destroy(structure);
+		}
+
+	public int getBuildingCount(BuildableStructure.Buildingtype type)
+		{
+		return structurecounts[type];
 		}
 
 	public void checkWaterline(float waterline)
 		{
 		foreach(GameObject structure in structures)
 			{
-			if(structure.transform.position.y <= waterline)
+			if(structure.transform.position.y <= waterline - 1)
 				{
 				destroyStructure(structure);
 				}

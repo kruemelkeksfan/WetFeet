@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Activator : MonoBehaviour
 	{
-	[SerializeField] bool startstate;
 	[SerializeField] List<GameObject> activatables;
 
 	public void changeState()
 		{
-		if(startstate)
+		if(activatables[0].activeSelf)
 			{
 			deactivate();
 			}
@@ -17,7 +16,6 @@ public class Activator : MonoBehaviour
 			{
 			activate();
 			}
-		startstate = !startstate;
 		}
 
 	public void activate()
