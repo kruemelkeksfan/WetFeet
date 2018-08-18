@@ -82,7 +82,7 @@ public class BuildableStructure : MonoBehaviour
 				}
 
 			// Check building requirements
-			if(Input.GetMouseButtonDown(0) && solidground && collidingstructures == 0)
+			if(Input.GetMouseButtonDown(0) && solidground && collidingstructures == 0) // TODO: Input.GetMouseButtonDown(0) seems to have delay, can we use events? On the other hand sometimes this is called before old building is cancelled when somebody presses another button
 				{
 				transform.position = new Vector3(transform.position.x, transform.position.y - 0.8f, transform.position.z);
 				placed = true;

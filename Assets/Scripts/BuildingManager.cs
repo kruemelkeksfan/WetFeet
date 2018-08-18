@@ -98,7 +98,7 @@ public class BuildingManager : MonoBehaviour
 
 	public void InstantiateBuilding(BuildableStructure building)
 		{
-		cancelBuilding();
+		cancelBuilding();		// TODO: bug: sometimes building gets placed before InstantiateBuilding() and therefore canelBuilding is called
 
 		cameramanager.AktivateBuildingCamera();
 		currentbuilding = Instantiate(building.gameObject, transform.position, Quaternion.identity);
@@ -106,7 +106,7 @@ public class BuildingManager : MonoBehaviour
 		resourcemanager.setProjectCosts(buildcosts[currentbuilding.GetComponent<BuildableStructure>().getBuildingType()]);
 		}
 
-	private void cancelBuilding()
+	public void cancelBuilding()
 		{
 		if(currentbuilding != null)
 			{

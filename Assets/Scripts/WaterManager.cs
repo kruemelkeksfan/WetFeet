@@ -13,15 +13,8 @@ public class WaterManager : MonoBehaviour
 	private float oldsealevel = 0;
 	private float sealevel = 0;
 	private float transitionprogress = 0;
-	private float lowerbound = 0;
 	private float wavelevel = 0;
-	private float lastvalidwave = 0;
 	private float waveprogress = 0;
-
-	private void Start()
-		{
-		lowerbound = topwater.transform.position.y;
-		}
 
 	private void FixedUpdate()
 		{
