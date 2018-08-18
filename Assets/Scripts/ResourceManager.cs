@@ -95,21 +95,20 @@ public class ResourceManager : MonoBehaviour
 					resources[resourcetype] += productionvalues[buildingtype][resourceindices[resourcetype]] * buildingmanager.getBuildingCount(buildingtype);
 					}
 				}
-
-			string resourcetext = "";
-			foreach(Resourcetype type in Enum.GetValues(typeof(Resourcetype)))
-				{
-				resourcetext += resourcenames[type] + ": " + resources[type] + " ";
-				if(projectcosts[resourceindices[type]] != 0)
-					{
-					resourcetext += "(" + projectcosts[resourceindices[type]] + ") ";
-					}
-				resourcetext += "\t\t\t\t";
-				}
-			resourcedisplay.text = resourcetext;
-
 			updatecounter = 0;
 			}
+
+		string resourcetext = "";
+		foreach(Resourcetype type in Enum.GetValues(typeof(Resourcetype)))
+			{
+			resourcetext += resourcenames[type] + ": " + resources[type] + " ";
+			if(projectcosts[resourceindices[type]] != 0)
+				{
+				resourcetext += "(" + projectcosts[resourceindices[type]] + ") ";
+				}
+			resourcetext += "\t\t\t\t";
+			}
+		resourcedisplay.text = resourcetext;
 		}
 
 	public bool subtractResources(int[] resources)

@@ -7,8 +7,8 @@ public class PollutionManager : MonoBehaviour
 	{
 	[SerializeField] BuildingManager buildingmanager;
 	[SerializeField] ResourceManager resourcemanager;
-	[SerializeField] GameObject water;
-	[SerializeField] int updatefrequency = 500;
+	[SerializeField] WaterManager watermanager;
+	[SerializeField] int updatefrequency = 100;
 	[SerializeField] float smallhouse;
 	[SerializeField] float apartmentblock;
 	[SerializeField] float skyscraper;
@@ -57,10 +57,11 @@ public class PollutionManager : MonoBehaviour
 				{
 				pollution += pollutionvalues[type] * buildingmanager.getBuildingCount(type);
 				}
+
+			watermanager.setSealevel(pollution);
+			buildingmanager.checkWaterline();
+
 			updatecounter = 0;
 			}
-
-		water.transform.position = new Vector3(water.transform.position.x, pollution, water.transform.position.z);
-		buildingmanager.checkWaterline(pollution);
 		}
 	}

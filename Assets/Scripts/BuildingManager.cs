@@ -7,6 +7,7 @@ public class BuildingManager : MonoBehaviour
 	{
 	[SerializeField] CameraManager cameramanager;
 	[SerializeField] ResourceManager resourcemanager;
+	[SerializeField] WaterManager watermanager;
 	[SerializeField] Button launch;
 	[SerializeField] int[] smallhouse;
 	[SerializeField] int[] apartmentblock;
@@ -135,14 +136,21 @@ public class BuildingManager : MonoBehaviour
 		return structurecounts[type];
 		}
 
-	public void checkWaterline(float waterline)
+	public void checkWaterline()
 		{
+		float sealevel = watermanager.getSealevel();
+		List<GameObject> flooded = new List<GameObject>();
 		foreach(GameObject structure in structures)
 			{
-			if(structure.transform.position.y <= waterline - 1)
+			if(structure.transform.position.y <= sealevel - 1)
 				{
-				destroyStructure(structure);
+				flooded.Add(structure);
 				}
+			}
+
+		for(int I = 0; I < flooded.Count; ++I)
+			{
+			destroyStructure(flooded[I]);
 			}
 		}
 	}
