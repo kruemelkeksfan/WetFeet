@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraManager : MonoBehaviour
 	{
-	[SerializeField] int speed = 2; // TODO: Setter?
+	[SerializeField] float speed = 2; // TODO: Setter?
 	[SerializeField] HighlightManager highlighter;
+	[SerializeField] Slider speedslider;
 
 	private float pitch = 0;
 	private float yaw = 0;
@@ -28,12 +30,6 @@ public class CameraManager : MonoBehaviour
 
 	void Update()
 		{
-		// Quit on Escape
-		if(Input.GetKeyDown(KeyCode.Escape))
-			{
-			Application.Quit();
-			}
-
 		// Boost on Shift
 		if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
 			{
@@ -129,5 +125,13 @@ public class CameraManager : MonoBehaviour
 		// Translate and rotate camera
 		transform.position += (Quaternion.Euler(pitch, yaw, roll) * direction) * currentspeed;
 		transform.rotation = Quaternion.Euler(pitch, yaw, roll);
+		}
+
+	public void updateSpeed()
+		{
+		if(speedslider != null && speedslider.gameObject.activeSelf)
+			{
+			speed = speedslider.value;
+			}
 		}
 	}
