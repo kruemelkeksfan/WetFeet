@@ -6,7 +6,7 @@ public class QuitManager : MonoBehaviour
 	{
 	[SerializeField] Canvas menu;
 
-	void Update ()
+	void Update()
 		{
 		if(Input.GetKeyDown(KeyCode.Escape))
 			{
