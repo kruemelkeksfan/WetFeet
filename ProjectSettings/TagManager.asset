@@ -4,8 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Environment
   - Structure
+  - Water
+  - Ground
   layers:
   - Default
   - TransparentFX

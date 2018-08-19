@@ -67,7 +67,6 @@ public class BuildingManager : MonoBehaviour
 				{
 				if(resourcemanager.subtractResources(buildcosts[currentBuildableStructure.getBuildingType()]))
 					{
-					cameramanager.AktivateMainCamera();
 					addStructure(currentbuilding);
 					resourcemanager.unsetProjectCosts();
 
@@ -99,10 +98,7 @@ public class BuildingManager : MonoBehaviour
 	public void InstantiateBuilding(BuildableStructure building)
 		{
 		cancelBuilding();		// TODO: bug: sometimes building gets placed before InstantiateBuilding() and therefore cancelBuilding is called
-
-		cameramanager.AktivateBuildingCamera();
 		currentbuilding = Instantiate(building.gameObject, transform.position, Quaternion.identity);
-
 		resourcemanager.setProjectCosts(buildcosts[currentbuilding.GetComponent<BuildableStructure>().getBuildingType()]);
 		}
 
@@ -111,8 +107,6 @@ public class BuildingManager : MonoBehaviour
 		if(currentbuilding != null)
 			{
 			resourcemanager.unsetProjectCosts();
-
-			cameramanager.AktivateMainCamera();
 			Object.Destroy(currentbuilding);
 			currentbuilding = null;
 			}
