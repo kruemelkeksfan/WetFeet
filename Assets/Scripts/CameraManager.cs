@@ -7,14 +7,7 @@ public class CameraManager : MonoBehaviour
 	{
 	[SerializeField] SimpleCameraController mainCamera;
 	[SerializeField] FlatCameraController buildingCamera;
-	[SerializeField] GameObject scriptcontainer;
-
-	private  HighlightManager highlighter;
-
-	private void Start()
-		{
-		highlighter = scriptcontainer.GetComponent<HighlightManager>();
-		}
+	[SerializeField] HighlightManager highlighter;
 
 	void Update()
 		{

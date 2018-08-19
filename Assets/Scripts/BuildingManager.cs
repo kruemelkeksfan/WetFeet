@@ -98,7 +98,7 @@ public class BuildingManager : MonoBehaviour
 
 	public void InstantiateBuilding(BuildableStructure building)
 		{
-		cancelBuilding();		// TODO: bug: sometimes building gets placed before InstantiateBuilding() and therefore canelBuilding is called
+		cancelBuilding();		// TODO: bug: sometimes building gets placed before InstantiateBuilding() and therefore cancelBuilding is called
 
 		cameramanager.AktivateBuildingCamera();
 		currentbuilding = Instantiate(building.gameObject, transform.position, Quaternion.identity);

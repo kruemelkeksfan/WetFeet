@@ -7,6 +7,7 @@ public class BuildableStructure : MonoBehaviour
 	{
 	[SerializeField] Buildingtype type;
 	[SerializeField] int startHeight = 100;
+	[SerializeField] string environmenttag = "Environment";
 	[SerializeField] string structuretag = "Structure";
 
 	public enum Buildingtype
@@ -56,7 +57,7 @@ public class BuildableStructure : MonoBehaviour
 
 			for(int I = 0; I < corners.Length; ++I)
 				{
-				if(Physics.Raycast(corners[I], Vector3.down, out hit, 200))
+				if(Physics.Raycast(corners[I], Vector3.down, out hit, 200) && hit.collider.tag.Equals(environmenttag))
 					{
 					distances[I] = Mathf.RoundToInt(hit.distance);
 					}
@@ -102,7 +103,7 @@ public class BuildableStructure : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 		{
-		if(other.tag == structuretag)
+		if(other.tag.Equals(structuretag))
 			{
 			++collidingstructures;
 			}
@@ -110,7 +111,7 @@ public class BuildableStructure : MonoBehaviour
 
 	private void OnTriggerExit(Collider other)
 		{
-		if(other.tag == structuretag)
+		if(other.tag.Equals(structuretag))
 			{
 			--collidingstructures;
 			}
