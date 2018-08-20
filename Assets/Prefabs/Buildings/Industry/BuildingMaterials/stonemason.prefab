@@ -154,4 +154,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
-  startHeight: 100
+  startheight: 100
+  environmenttag: Ground
+  structuretag: Structure

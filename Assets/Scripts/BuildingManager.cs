@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class BuildingManager : MonoBehaviour
 	{
-	[SerializeField] CameraManager cameramanager;
 	[SerializeField] ResourceManager resourcemanager;
 	[SerializeField] WaterManager watermanager;
 	[SerializeField] Button launch;
+	[SerializeField] WarningManager warningmanager;
 	[SerializeField] int[] smallhouse;
 	[SerializeField] int[] apartmentblock;
 	[SerializeField] int[] skyscraper;
@@ -80,7 +80,7 @@ public class BuildingManager : MonoBehaviour
 				else
 					{
 					cancelBuilding();
-					// No Ressources Error
+					warningmanager.setWarning("Not enough resources");
 					}
 				}
 			if(currentbuilding != null && Input.GetKeyDown(KeyCode.R))
@@ -97,8 +97,9 @@ public class BuildingManager : MonoBehaviour
 
 	public void InstantiateBuilding(BuildableStructure building)
 		{
-		cancelBuilding();		// TODO: bug: sometimes building gets placed before InstantiateBuilding() and therefore cancelBuilding is called
-		currentbuilding = Instantiate(building.gameObject, transform.position, Quaternion.identity);
+		cancelBuilding();       // TODO: bug: sometimes building gets placed before InstantiateBuilding() and therefore cancelBuilding is called
+		currentbuilding = Instantiate(building.gameObject, Vector3.zero, Quaternion.identity);
+		currentbuilding.GetComponent<BuildableStructure>().setWarningManager(warningmanager);
 		resourcemanager.setProjectCosts(buildcosts[currentbuilding.GetComponent<BuildableStructure>().getBuildingType()]);
 		}
 

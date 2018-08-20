@@ -43,12 +43,14 @@ public class CameraManager : MonoBehaviour
 		// Hide and lock cursor on MMB down
 		if(Input.GetMouseButtonDown(2))
 			{
+			Cursor.visible = false;
 			Cursor.lockState = CursorLockMode.Locked;
 			}
 
 		// Show and unlock cursor on MMB release
 		if(Input.GetMouseButtonUp(2))
 			{
+			Cursor.visible = true;
 			Cursor.lockState = CursorLockMode.None;
 			}
 
