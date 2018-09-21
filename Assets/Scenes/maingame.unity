@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2138677392}
-  m_IndirectSpecularColor: {r: 0.28502578, g: 0.3713923, b: 0.49601188, a: 1}
+  m_IndirectSpecularColor: {r: 0.28502575, g: 0.37139207, b: 0.4960116, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3552,7 +3552,7 @@ RectTransform:
   - {fileID: 1190577234}
   - {fileID: 2032334562}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -11166,7 +11166,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 3776bbe9225ea83409cb708627458b0b, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 3776bbe9225ea83409cb708627458b0b, type: 3}
       propertyPath: m_LocalScale.x
@@ -12067,7 +12067,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1687258581}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cb4d16af3122064093e36f927a568e8, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a2ac3efbfa333e409e6168ff9bff91d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
@@ -12152,7 +12152,7 @@ MonoBehaviour:
     quality: 2
   fastApproximateAntialiasing:
     fastMode: 1
-    keepAlpha: 0
+    keepAlpha: 1
   fog:
     enabled: 1
     excludeSkybox: 1
@@ -14415,7 +14415,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89b6ddb4fab7e12498ca4a85f02d719b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameramanager: {fileID: 0}
   resourcemanager: {fileID: 1939503170}
   watermanager: {fileID: 575247295}
   launch: {fileID: 465651549}
