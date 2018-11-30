@@ -5,14 +5,18 @@ using UnityEngine.UI;
 
 public class CameraManager : MonoBehaviour
 	{
-	[SerializeField] float speed = 2; // TODO: Setter?
+	[SerializeField] float speed = 0;
+	[SerializeField] float zoomspeed = 0;
 	[SerializeField] HighlightManager highlighter;
 	[SerializeField] Slider speedslider;
+	[SerializeField] Slider zoomslider;
 
 	private float pitch = 0;
 	private float yaw = 0;
 	private float roll = 0;
 	private float currentspeed = 0;
+	private float currentzoomspeed = 0;
+	private float zoom = 0;
 	private bool topdown = false;
 	private Vector3 oldposition = Vector3.zero;
 	private float oldpitch = 0;
@@ -26,6 +30,9 @@ public class CameraManager : MonoBehaviour
 		pitch = startrotation.x;
 		yaw = startrotation.y;
 		roll = startrotation.z;
+
+		updateSpeed();
+		updateZoom();
 		}
 
 	void Update()
@@ -34,10 +41,12 @@ public class CameraManager : MonoBehaviour
 		if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
 			{
 			currentspeed = speed * 5;
+			currentzoomspeed = zoomspeed * 5;
 			}
 		else
 			{
 			currentspeed = speed;
+			currentzoomspeed = zoomspeed;
 			}
 
 		// Hide and lock cursor on MMB down
@@ -125,7 +134,8 @@ public class CameraManager : MonoBehaviour
 			}
 
 		// Translate and rotate camera
-		transform.position += (Quaternion.Euler(pitch, yaw, roll) * direction) * currentspeed;
+		transform.position += (Quaternion.Euler(0, yaw, 0) * direction) * currentspeed;
+		transform.position += (Quaternion.Euler(pitch, yaw, roll) * Vector3.forward) * Input.GetAxis("Mouse ScrollWheel") * currentzoomspeed; // Zoom with ScrollWheel
 		transform.rotation = Quaternion.Euler(pitch, yaw, roll);
 		}
 
@@ -134,6 +144,14 @@ public class CameraManager : MonoBehaviour
 		if(speedslider != null && speedslider.gameObject.activeSelf)
 			{
 			speed = speedslider.value;
+			}
+		}
+
+	public void updateZoom()
+		{
+		if(zoomslider != null && zoomslider.gameObject.activeSelf)
+			{
+			zoomspeed = zoomslider.value;
 			}
 		}
 	}
